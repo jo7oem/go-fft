@@ -1,4 +1,4 @@
-package fft
+package goFFT
 
 import (
 	"math"
@@ -9,14 +9,12 @@ func DFT(x []complex128) []complex128 {
 	lx := len(x)
 	res := make([]complex128, lx, lx)
 
-	omega := -1i * 2 * math.Pi
+	omega := 0 - 1i*2*math.Pi/complex(float64(lx), 0)
 	for i := 0; i < lx; i++ {
 		omegaK := omega * complex(float64(i), 0)
-		element := x[i]
 		for n := 1; n < lx; n++ {
-			element += x[n] * cmplx.Exp(omegaK*complex(float64(n), 0))
+			res[i] += x[n] * cmplx.Exp(omegaK*complex(float64(n), 0))
 		}
-		res[i] = element
 	}
 	return res
 }
@@ -33,7 +31,7 @@ func C2R(x []complex128) []float64 {
 	lx := len(x)
 	res := make([]float64, lx, lx)
 	for i := 0; i < lx; i++ {
-		res[i] = cmplx.Abs(x[i])
+		res[i] = real(x[i])
 	}
 	return res
 }
