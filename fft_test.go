@@ -28,7 +28,7 @@ func genWave(lens int) []float64 {
 
 }
 func TestDFT(t *testing.T) {
-	tmp := genWave(2048)
+	tmp := genWave(4000)
 	wont := dspFFT.FFTReal(tmp)
 	res := DFT(R2C(tmp))
 	for i, f := range res {
